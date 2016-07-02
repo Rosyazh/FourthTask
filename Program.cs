@@ -27,7 +27,7 @@ namespace FourthTask
         void FoodSearch(bool _search);
     }
 
-    abstract class Animal
+    class Animal
     {
         private string species;
         private int energy;
@@ -80,6 +80,11 @@ namespace FourthTask
             }
             else
                 Console.WriteLine("Food not found.");
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1}", Species, Energy);
         }
     }
 
@@ -179,30 +184,24 @@ namespace FourthTask
         }
     }
 
-    class Group<TName>
+    class Group<TValue>
     {
-        TName[] name = new TName[10];
-        TName[] value = new TName[10];
-        int position1;
-        int position2;
+        int position;
+        TValue[] data = new TValue[10];
 
-        public void Push(TName _name, TName _value)
+        public void Push(TValue obj)
         {
-            name[position1++] = _name;
-            value[position2++] = _value;
+            data[position++] = obj;
         }
 
         public void Print()
         {
-            for(int i = 0; i < name.Length; i++)
+            Console.WriteLine("\nThe animal data:\n");
+            foreach (TValue value in data)
             {
-                Console.WriteLine("Name: " + name[i]);
+                if (value != null)
+                    Console.WriteLine(value.ToString());
             }
-            for (int i = 0; i < value.Length; i++)
-            {
-                Console.WriteLine("Value: " + value[i]);
-            }
-            
         }
     }
 
@@ -229,13 +228,13 @@ namespace FourthTask
             ((IFly)g1).FoodSearch(true);
             ((IWalk)g1).FoodSearch(true);
 
-            Group<string> group = new Group<string>();
+            Group<Animal> group = new Group<Animal>();
 
-            group.Push("psovie", d1.Species);
-            group.Push("crocodiloobraznie", c1.Species);
-            group.Push("mishinie", b1.Species);
-            group.Push("karpovie", k1.Species);
-            group.Push("guseobraznie", g1.Species);
+            group.Push(d1);
+            group.Push(c1);
+            group.Push(b1);
+            group.Push(k1);
+            group.Push(g1);
             group.Print();
 
             Console.ReadKey();
